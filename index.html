@@ -24,19 +24,30 @@
             display: flex;
             justify-content: center; /* Tengah secara horizontal */
             align-items: center;     /* Tengah secara vertikal */
+            overflow: hidden; /* Agar tidak muncul scroll saat transisi */
         }
 
-        .container-amplop {
-            /* Wadah untuk gambar */
-            width: 90%;          /* Lebar 90% dari layar di HP */
-            max-width: 400px;    /* Lebar maksimal 400px agar tidak terlalu besar di laptop */
-            text-align: center;  /* Memastikan konten di dalamnya rata tengah */
+        /* Container Utama untuk menyatukan tumpukan */
+    .stack-container {
+        position: relative; /* Menjadi patokan tumpukan */
+        width: 90%;
+        max-width: 400px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         }
-
+        
+        .container-amplop, .container-kertas {
+        position: absolute; /* Keduanya diletakkan di titik yang sama (bertumpuk) */
+        width: 100%;
+        transition: all 0.8s ease-in-out;
+        }
+        
         .gambar-amplop {
             width: 100%;         /* Gambar akan mengikuti lebar wadah .container-amplop */
             height: auto;        /* Tinggi menyesuaikan agar gambar tidak gepeng */
             cursor: pointer;     /* Mengubah kursor menjadi jari saat diarahkan ke gambar */
+            display: block;
         }
 
         /* --- KODE BARU: MENERAPKAN ANIMASI --- */
@@ -61,6 +72,19 @@
         transform: translate(0, 0) scale(1); /* Kembali ke tengah */
     }
         }
+
+        /* Pengaturan awal: kertas disembunyikan di belakang amplop */
+    .container-kertas {
+        opacity: 0;
+        transform: scale(0);
+        z-index: 1;
+    }
+
+    .container-amplop {
+        z-index: 2; /* Amplop berada di depan */
+        cursor: pointer;
+        animation: gerak-diagonal 4s infinite ease-in-out;
+    }
 
         /* --- Aturan untuk Kertas Undangan (letter.png) --- */
 .container-kertas {
