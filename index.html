@@ -123,12 +123,43 @@
     transform: scale(1) !important; /* Muncul ke ukuran normal */
     z-index: 100 !important; /* Pindah ke paling depan */
 }
+
+/* Container untuk teks nama */
+.typing-wrapper {
+    position: absolute;
+    top: 35%; /* Atur angka ini (naik/turun) agar pas di posisi nama pada gambar Anda */
+    width: 100%;
+    text-align: center;
+    z-index: 110; /* Pastikan di atas kertas */
+    font-family: 'Marck Script'; /* Anda bisa ganti dengan font lain */
+    font-size: 24px;
+    color: #74695c;
+    font-weight: bold;
+    pointer-events: none; /* Agar tidak menghalangi klik */
+}
+
+/* Efek kursor berkedip (opsional agar seperti mengetik sungguhan) */
+.cursor {
+    display: inline-block;
+    width: 2px;
+    background-color: #4a4a4a;
+    margin-left: 3px;
+    animation: blink 0.8s infinite;
+}
+
+@keyframes blink {
+    50% { opacity: 0; }
+}
     </style>
 </head>
 <body>
     <body>
     <div class="stack-container">
         <div class="container-kertas" id="wadahKertas">
+            <div class="typing-wrapper">
+                <span id="namaTamu"></span><span id="garisKursor" class="cursor">|</span>
+        </div>    
+            
         <img src="letter.png" class="gambar-kertas">
     </div>
 
@@ -148,5 +179,29 @@
         kertas.classList.add('zoom-in');
     }
 </script>
+      <script>
+    const teksNama = "Dona"; // Nama yang akan diketik
+    let index = 0;
+
+    function bukaUndangan() {
+        // 1. Jalankan animasi zoom amplop dan kertas
+        document.getElementById('wadahAmplop').classList.add('zoom-out');
+        document.getElementById('wadahKertas').classList.add('zoom-in');
+
+        // 2. Tunggu sebentar (misal 1 detik) sampai kertas muncul, lalu mulai mengetik
+        setTimeout(mulaiMengetik, 1000);
+    }
+
+    function mulaiMengetik() {
+        if (index < teksNama.length) {
+            document.getElementById('namaTamu').innerHTML += teksNama.charAt(index);
+            index++;
+            setTimeout(mulaiMengetik, 200); // Kecepatan ketik (200ms per huruf)
+        } else {
+            // Hilangkan kursor setelah selesai mengetik
+            document.getElementById('garisKursor').style.display = 'none';
+        }
+    }
+</script>  
     </body>
 </html>
