@@ -140,6 +140,12 @@
     pointer-events: none; /* Agar tidak menghalangi klik */
 }
 
+        #baris2 {
+    font-size: 20px; /* Lebih kecil dari baris 1 agar muat di kertas */
+    line-height: 1.4;
+    max-width: 60%; /* Membatasi lebar teks agar tetap di dalam area kertas */
+}
+
 /* Efek kursor berkedip (opsional agar seperti mengetik sungguhan) */
 .cursor {
     display: inline-block;
@@ -159,7 +165,7 @@
     <div class="stack-container">
         <div class="container-kertas" id="wadahKertas">
             <div class="typing-wrapper">
-                <span id="namaTamu"></span><span id="garisKursor" class="cursor">|</span>
+                <div id="baris1"></div> <div id="baris2" style="margin-top: 10px;"></div> <span id="garisKursor" class="cursor">|</span>
         </div>    
             
         <img src="letter.png" class="gambar-kertas">
@@ -181,28 +187,48 @@
         kertas.classList.add('zoom-in');
     }
 </script>
-      <script>
-    const teksNama = "dear Dona,"; // Nama yang akan diketik
-    let index = 0;
+    <script>
+    const teks1 = "Dear Dona,";
+    const teks2 = "we are very pleased to invite you to our wedding";
+    
+    let index1 = 0;
+    let index2 = 0;
 
     function bukaUndangan() {
-        // 1. Jalankan animasi zoom amplop dan kertas
         document.getElementById('wadahAmplop').classList.add('zoom-out');
         document.getElementById('wadahKertas').classList.add('zoom-in');
 
-        // 2. Tunggu sebentar (misal 1 detik) sampai kertas muncul, lalu mulai mengetik
-        setTimeout(mulaiMengetik, 1000);
+        // Tunggu 1 detik agar animasi kertas selesai, lalu mulai baris 1
+        setTimeout(ketikBaris1, 1000);
     }
 
-    function mulaiMengetik() {
-        if (index < teksNama.length) {
-            document.getElementById('namaTamu').innerHTML += teksNama.charAt(index);
-            index++;
-            setTimeout(mulaiMengetik, 200); // Kecepatan ketik (200ms per huruf)
+    function ketikBaris1() {
+        if (index1 < teks1.length) {
+            document.getElementById('baris1').innerHTML += teks1.charAt(index1);
+            index1++;
+            setTimeout(ketikBaris1, 150); // Kecepatan ketik baris 1
         } else {
-            // Hilangkan kursor setelah selesai mengetik
-            document.getElementById('garisKursor').style.display = 'none';
+            // Setelah baris 1 selesai, tunggu 500ms lalu mulai baris 2
+            setTimeout(ketikBaris2, 500);
         }
+    }
+
+    function ketikBaris2() {
+        if (index2 < teks2.length) {
+            document.getElementById('baris2').innerHTML += teks2.length === 0 ? "" : teks2.charAt(index2);
+            
+            // Pindahkan kursor agar selalu berada di baris yang sedang diketik
+            const baris2Elem = document.getElementById('baris2');
+            const kursor = document.getElementById('garisKursor');
+            baris2Elem.appendChild(kursor); 
+
+            index2++;
+            setTimeout(ketikBaris2, 100); // Kecepatan ketik baris 2 (lebih cepat)
+        } else {
+            // Selesai semua, kursor tetap berkedip di akhir baris 2
+        }
+    }
+</script>
     }
 </script>  
     </body>
