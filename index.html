@@ -7,243 +7,189 @@
     <link href="https://fonts.googleapis.com/css2?family=Dynalight&display=swap" rel="stylesheet">
     
     <style>
-        /* Bagian CSS untuk mengatur tampilan */
-        
-        /* Mengatur agar tidak ada jarak sisa di pinggir layar */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        /* Mengatur seluruh halaman agar penuh dan berwarna #b79382 */
         body, html {
             height: 100%;
             width: 100%;
-            background-color: #b79382; /* Warna pilihan Anda */
-            /* Flexbox di bawah ini berfungsi menarik semua isi body ke tengah */
+            background-color: #b79382;
             display: flex;
-            justify-content: center; /* Tengah secara horizontal */
-            align-items: center;     /* Tengah secara vertikal */
-            overflow: hidden; /* Agar tidak muncul scroll saat transisi */
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
         }
 
-        /* Container Utama untuk menyatukan tumpukan */
-    .stack-container {
-        position: relative; /* Menjadi patokan tumpukan */
-        width: 90%;
-        max-width: 400px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        .stack-container {
+            position: relative;
+            width: 90%;
+            max-width: 400px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
         
+        /* Kontainer Utama */
         .container-amplop, .container-kertas {
-        position: absolute; /* Keduanya diletakkan di titik yang sama (bertumpuk) */
-        width: 100%;
-        transition: all 0.8s ease-in-out;
-        }
-        
-        .gambar-amplop {
-            width: 65%;         /* Gambar akan mengikuti lebar wadah .container-amplop */
-            height: auto;        /* Tinggi menyesuaikan agar gambar tidak gepeng */
-            cursor: pointer;     /* Mengubah kursor menjadi jari saat diarahkan ke gambar */
-            display: block;
-            margin: 0 auto; /* Menambah ini agar gambar di tengah secara horizontal */
+            position: absolute;
+            width: 100%;
+            transition: all 0.8s ease-in-out;
         }
 
-         /* Pengaturan awal: kertas disembunyikan di belakang amplop */
-    .container-kertas {
-    position: absolute;
-    width: 90%;
-    max-width: 400px;
-    opacity: 0;
-    transform: scale(0); 
-    transition: all 0.8s ease-in-out;
-    z-index: 1;
-}
-
+        /* Amplop */
         .container-amplop {
-        z-index: 2; /* Amplop berada di depan */
-        cursor: pointer;
-        animation: pulse 1.5s infinite ease-in-out;
-    }
+            z-index: 10;
+            cursor: pointer;
+            animation: pulse 1.5s infinite ease-in-out;
+        }
 
-      /* --- KODE BARU: ANIMASI PULSE (DENYUT) --- */
-@keyframes pulse {
-    0% {
-        transform: scale(1); /* Ukuran normal */
-    }
-    50% {
-        transform: scale(1.08); /* Membesar sedikit (8%) */
-    }
-    100% {
-        transform: scale(1); /* Kembali normal */
-    }
-}  
-    }
+        .gambar-amplop {
+            width: 65%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
 
-    /* State saat diklik (Zoom Out Amplop) */
-    .zoom-out {
-        transform: scale(0) !important;
-        opacity: 0 !important;
-        pointer-events: none;
-    }
+        /* Kertas */
+        .container-kertas {
+            opacity: 0;
+            transform: scale(0);
+            z-index: 5;
+        }
 
-    /* State saat muncul (Zoom In Kertas) */
-    .zoom-in {
-        opacity: 1 !important;
-        transform: scale(1) !important;
-    }
-        /* --- Aturan untuk Kertas Undangan (letter.png) --- */
-.container-kertas {
-    position: absolute; /* Menumpuk di atas amplop */
-    width: 90%;
-    max-width: 400px;
-    opacity: 0;         /* Awalnya tidak terlihat */
-    transform: scale(0); /* Awalnya berukuran nol */
-    transition: all 0.8s ease-in-out; /* Durasi animasi 0.8 detik */
-    z-index: 1;         /* Di bawah amplop saat awal */
-}
+        .gambar-kertas {
+            width: 100%;
+            height: auto;
+        }
 
-.gambar-kertas {
-    width: 100%;
-    height: auto;
-}
+        /* Animasi Transisi */
+        .zoom-out {
+            transform: scale(0) !important;
+            opacity: 0 !important;
+            pointer-events: none;
+        }
 
-/* --- State ketika Amplop diketuk --- */
-.zoom-out {
-    transform: scale(0) !important; /* Mengecil sampai hilang */
-    opacity: 0 !important;
-    pointer-events: none; /* Agar tidak bisa diklik lagi */
-}
+        .zoom-in {
+            opacity: 1 !important;
+            transform: scale(1) !important;
+            z-index: 100 !important;
+        }
 
-/* --- State ketika Kertas muncul --- */
-.zoom-in {
-    opacity: 1 !important;
-    transform: scale(1) !important; /* Muncul ke ukuran normal */
-    z-index: 100 !important; /* Pindah ke paling depan */
-}
+        /* Wrapper Teks di Atas Kertas */
+        .typing-wrapper {
+            position: absolute;
+            top: 25%;
+            width: 100%;
+            text-align: left;
+            padding-left: 15%;
+            z-index: 110;
+            font-family: 'Dynalight', cursive;
+            color: #74695c;
+            pointer-events: none;
+        }
 
-/* Container untuk teks nama */
-.typing-wrapper {
-    position: absolute;
-    top: 25%; /* Atur angka ini (naik/turun) agar pas di posisi nama pada gambar Anda */
-    width: 100%;
-    text-align: left;
-    padding-left: 20%;  /* Geser teks ke kanan (tambah angka ini jika kurang kanan) */
-    z-index: 110; /* Pastikan di atas kertas */
-    font-family: 'Dynalight', cursive !important; /* Anda bisa ganti dengan font lain */
-    font-size: 50px;
-    color: #74695c;
-    font-weight: normal;
-    pointer-events: none; /* Agar tidak menghalangi klik */
-}
+        #baris1 {
+            font-size: 35px;
+            min-height: 40px;
+        }
 
         #baris2 {
-    font-size: 30px; /* Lebih kecil dari baris 1 agar muat di kertas */
-    line-height: 1.4;
-    max-width: 60%; /* Membatasi lebar teks agar tetap di dalam area kertas */
-}
+            font-size: 20px;
+            line-height: 1.2;
+            max-width: 75%;
+            margin-top: 5px;
+        }
 
-/* Efek kursor berkedip (opsional agar seperti mengetik sungguhan) */
-.cursor {
-    display: none; /* Sembunyikan kursor di awal */
-    width: 2px;
-    background-color: #4a4a4a;
-    margin-left: 3px;
-    animation: blink 0.8s infinite;
-}
+        /* Kursor */
+        .cursor {
+            display: none; /* Awalnya sembunyi */
+            font-weight: normal;
+            font-family: Arial, sans-serif;
+            margin-left: 2px;
+            animation: blink 0.8s infinite;
+        }
 
-@keyframes blink {
-    50% { opacity: 0; }
-}
+        @keyframes blink { 50% { opacity: 0; } }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
     </style>
 </head>
 <body>
-    <body>
+
     <div class="stack-container">
         <div class="container-kertas" id="wadahKertas">
             <div class="typing-wrapper">
-                <div id="baris1"></div> <div id="baris2" style="margin-top: 10px;"></div> <span id="garisKursor" class="cursor">|</span>
-        </div>    
-            
-        <img src="letter.png" class="gambar-kertas">
+                <div id="baris1"></div>
+                <div id="baris2"></div>
+                <span id="garisKursor" class="cursor">|</span>
+            </div>
+            <img src="letter.png" class="gambar-kertas">
+        </div>
+
+        <div class="container-amplop" id="wadahAmplop" onclick="bukaUndangan()">
+            <img src="amplop.png" alt="Amplop Undangan" class="gambar-amplop">
+        </div>
     </div>
 
-    <div class="container-amplop" id="wadahAmplop" onclick="bukaUndangan()">
-        <img src="amplop.png" alt="Amplop Undangan" class="gambar-amplop">
-    </div>
-<script>
-    function bukaUndangan() {
-        // 1. Ambil elemen amplop dan kertas
-        const amplop = document.getElementById('wadahAmplop');
-        const kertas = document.getElementById('wadahKertas');
-
-        // 2. Berikan class 'zoom-out' pada amplop agar mengecil
-        amplop.classList.add('zoom-out');
-
-        // 3. Berikan class 'zoom-in' pada kertas agar muncul besar
-        kertas.classList.add('zoom-in');
-    }
-</script>
     <script>
-    const teks1 = "Dear Dona,";
-    const teks2 = "we are very pleased to invite you to our wedding";
-    
-    let index1 = 0;
-    let index2 = 0;
-
-    function bukaUndangan() {
-        const amplop = document.getElementById('wadahAmplop').classList.add('zoom-out');
-        const kertas =  document.getElementById('wadahKertas').classList.add('zoom-in');
-        const kursor = document.getElementById('garisKursor');
-
-        // Jalankan animasi transisi
-        amplop.classList.add('zoom-out');
-        kertas.classList.add('zoom-in');
+        const teks1 = "Dear Dona,";
+        const teks2 = "we are very pleased to invite you to our wedding";
         
-        // Tunggu 1 detik agar animasi kertas selesai, lalu mulai baris 1
-        setTimeout(() => {
-            document.getElementById('garisKursor').style.display = 'inline-block';
-        ketikBaris1();
-    }, 1000);
-    }
+        let index1 = 0;
+        let index2 = 0;
 
-    function ketikBaris1() {
-        if (index1 < teks1.length) {
-            document.getElementById('baris1').innerHTML += teks1.charAt(index1);
-            index1++;
-            setTimeout(ketikBaris1, 150); // Kecepatan ketik baris 1
-        } else {
-            // Setelah baris 1 selesai, tunggu 500ms lalu mulai baris 2
-            setTimeout(ketikBaris2, 500);
+        function bukaUndangan() {
+            const amplop = document.getElementById('wadahAmplop');
+            const kertas = document.getElementById('wadahKertas');
+            const kursor = document.getElementById('garisKursor');
+
+            // 1. Jalankan animasi transisi
+            amplop.classList.add('zoom-out');
+            kertas.classList.add('zoom-in');
+
+            // 2. Mulai mengetik setelah kertas terbuka (1 detik)
+            setTimeout(() => {
+                kursor.style.display = 'inline-block';
+                ketikBaris1();
+            }, 1000);
         }
-    }
 
-    function ketikBaris2() {
-        if (index2 < teks2.length) {
-            // Pindahkan kursor ke baris 2 saat mulai mengetik huruf pertama baris 2
+        function ketikBaris1() {
+            if (index1 < teks1.length) {
+                document.getElementById('baris1').innerHTML += teks1.charAt(index1);
+                index1++;
+                setTimeout(ketikBaris1, 150);
+            } else {
+                setTimeout(ketikBaris2, 500);
+            }
+        }
+
+        function ketikBaris2() {
             const baris2Elem = document.getElementById('baris2');
             const kursor = document.getElementById('garisKursor');
-            
-            if (index2 === 0) {
-            baris2Elem.appendChild(kursor);
-        }
 
-        baris2Elem.innerHTML = teks2.substring(0, index2 + 1);
-        baris2Elem.appendChild(kursor); // Pastikan kursor selalu di paling ujung
+            if (index2 < teks2.length) {
+                // Pindahkan kursor ke baris 2 saat mulai
+                if (index2 === 0) {
+                    baris2Elem.appendChild(kursor);
+                }
+                
+                // Tambahkan huruf satu per satu
+                baris2Elem.innerHTML = teks2.substring(0, index2 + 1);
+                baris2Elem.appendChild(kursor); 
 
-        index2++;
-        setTimeout(ketikBaris2, 100);
+                index2++;
+                setTimeout(ketikBaris2, 80);
+            } else {
+                // Selesai: hilangkan kursor
+                kursor.style.display = 'none';
+            }
         }
-        /* --- TAMBAHKAN BAGIAN ELSE DI BAWAH INI --- */
-    else {
-        // Menghilangkan kursor setelah selesai mengetik baris 2
-        document.getElementById('garisKursor').style.display = 'none';
-    }
-</script>
-    }
-</script>  
-    </body>
+    </script>
+</body>
 </html>
