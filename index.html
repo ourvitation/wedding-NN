@@ -4,138 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Undangan Nana & Nio</title>
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+    
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        /* Bagian CSS untuk mengatur tampilan */
+        
+        /* Mengatur agar tidak ada jarak sisa di pinggir layar */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        /* Mengatur seluruh halaman agar penuh dan berwarna #b79382 */
         body, html {
             height: 100%;
             width: 100%;
-            overflow: hidden;
-            background-color: #b79382;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        .invitation-container {
-            position: relative;
-            width: 100%;
-            max-width: 500px;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        /* Layer Isi Undangan */
-        .page-content {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background-image: url('undangan.png'); 
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: center;
-            z-index: 1;
-            display: flex;
-            justify-content: center;
-        }
-
-        /* Container untuk Nama yang Mengetik Otomatis */
-        /* Sesuaikan 'top' agar posisi nama pas di atas garis/area nama pada gambar Anda */
-        .typing-container {
-            position: absolute;
-            top: 28%; 
-            font-family: 'Great Vibes', cursive;
-            font-size: 2.5rem;
-            color: #4a4a4a;
-            z-index: 2;
-        }
-
-        /* Efek kursor berkedip */
-        .cursor {
-            display: inline-block;
-            width: 3px;
-            background-color: #4a4a4a;
-            margin-left: 5px;
-            animation: blink 1s infinite;
-        }
-
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
-        }
-
-        /* Layer Amplop */
-        .envelope-layer {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url('amplop.png'); 
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: center;
-            z-index: 10;
-            cursor: pointer;
-            transition: all 1.2s cubic-bezier(0.645, 0.045, 0.355, 1);
-        }
-
-        .envelope-layer.open {
-            transform: translateY(-100%);
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        .envelope-layer:not(.open) {
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.02); }
+            background-color: #b79382; /* Warna pilihan Anda */
         }
     </style>
 </head>
 <body>
 
-    <div class="invitation-container">
-        <div class="page-content">
-            <div class="typing-container">
-                <span id="typed-name"></span><span id="cursor" class="cursor">|</span>
-            </div>
-        </div>
-
-        <div class="envelope-layer" id="envelope" onclick="openInvitation()"></div>
-    </div>
-
-    <script>
-        const nameToType = "Dona";
-        let index = 0;
-
-        function openInvitation() {
-            const envelope = document.getElementById('envelope');
-            envelope.classList.add('open');
-            
-            // Beri jeda sedikit agar animasi buka amplop selesai dulu, baru mengetik
-            setTimeout(() => {
-                startTyping();
-            }, 1000);
-        }
-
-        function startTyping() {
-            if (index < nameToType.length) {
-                document.getElementById('typed-name').innerHTML += nameToType.charAt(index);
-                index++;
-                setTimeout(startTyping, 200); // Kecepatan ketikan (ms)
-            } else {
-                // Hilangkan kursor setelah selesai mengetik
-                document.getElementById('cursor').style.display = 'none';
-            }
-        }
-    </script>
-</body>
+    </body>
 </html>
