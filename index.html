@@ -44,7 +44,7 @@
         }
         
         .gambar-amplop {
-            width: 650%;         /* Gambar akan mengikuti lebar wadah .container-amplop */
+            width: 65%;         /* Gambar akan mengikuti lebar wadah .container-amplop */
             height: auto;        /* Tinggi menyesuaikan agar gambar tidak gepeng */
             cursor: pointer;     /* Mengubah kursor menjadi jari saat diarahkan ke gambar */
             display: block;
@@ -57,35 +57,30 @@
         z-index: 1;
     }
 
-        /* --- KODE BARU: MENERAPKAN ANIMASI --- */
-            animation: gerak-diagonal 4s infinite ease-in-out;
-        }
-
-        /* --- KODE BARU: INSTRUKSI GERAKAN --- */
-        @keyframes gerak-diagonal {
-            0% {
-        transform: translate(0, 0) scale(1); /* Posisi awal */
-    }
-    25% {
-        transform: translate(10px, -10px) scale(1.02); /* Kanan atas */
-    }
-    50% {
-        transform: translate(-10px, 10px) scale(1.05); /* Kiri bawah */
-    }
-    75% {
-        transform: translate(10px, 10px) scale(1.02); /* Kanan bawah */
-    }
-    100% {
-        transform: translate(0, 0) scale(1); /* Kembali ke tengah */
-    }
-        }
-
-    .container-amplop {
+        .container-amplop {
         z-index: 2; /* Amplop berada di depan */
         cursor: pointer;
         animation: gerak-diagonal 4s infinite ease-in-out;
     }
 
+        /* Animasi Diagonal */
+    @keyframes gerak-diagonal {
+        0%, 100% { transform: translate(0, 0); }
+        50% { transform: translate(10px, -10px); }
+    }
+
+    /* State saat diklik (Zoom Out Amplop) */
+    .zoom-out {
+        transform: scale(0) !important;
+        opacity: 0 !important;
+        pointer-events: none;
+    }
+
+    /* State saat muncul (Zoom In Kertas) */
+    .zoom-in {
+        opacity: 1 !important;
+        transform: scale(1) !important;
+    }
         /* --- Aturan untuk Kertas Undangan (letter.png) --- */
 .container-kertas {
     position: absolute; /* Menumpuk di atas amplop */
