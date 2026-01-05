@@ -38,6 +38,23 @@
             height: auto;        /* Tinggi menyesuaikan agar gambar tidak gepeng */
             cursor: pointer;     /* Mengubah kursor menjadi jari saat diarahkan ke gambar */
         }
+
+        /* --- KODE BARU: MENERAPKAN ANIMASI --- */
+            animation: denyut-halus 2s infinite ease-in-out;
+        }
+
+        /* --- KODE BARU: INSTRUKSI GERAKAN --- */
+        @keyframes denyut-halus {
+            0% {
+                transform: scale(1); /* Ukuran asli */
+            }
+            50% {
+                transform: scale(1.05); /* Membesar sedikit (5%) */
+            }
+            100% {
+                transform: scale(1); /* Kembali ke ukuran asli */
+            }
+        }
     </style>
 </head>
 <body>
