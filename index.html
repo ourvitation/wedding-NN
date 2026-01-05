@@ -58,7 +58,7 @@
     max-width: 400px;
     opacity: 0;
     /* Pastikan ada rotate(0deg) di posisi awal */
-    transform: scale(0) rotate(0deg); 
+    transform: scale(0); 
     transition: all 0.8s ease-in-out;
     z-index: 1;
 }
@@ -121,7 +121,7 @@
 /* --- State ketika Kertas muncul --- */
 .zoom-in {
     opacity: 1 !important;
-    transform: scale(1) rotate(360deg) !important; /* Muncul ke ukuran normal */
+    transform: scale(1) !important; /* Muncul ke ukuran normal */
     z-index: 100 !important; /* Pindah ke paling depan */
 }
     </style>
