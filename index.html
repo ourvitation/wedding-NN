@@ -81,7 +81,7 @@
         /* Wrapper Teks di Atas Kertas */
         .typing-wrapper {
             position: absolute;
-            top: 25%;
+            top: 15%;
             width: 100%;
             text-align: left;
             padding-left: 15%;
@@ -94,6 +94,10 @@
         #baris1 {
             font-size: 60px;
             min-height: 40px;
+            margin-top: 0;      /* Memastikan tidak ada jarak di atas */
+            margin-left: 0;     /* Memastikan tidak ada jarak di kiri */
+            display: flex;      /* Gunakan flex agar kursor sejajar sempurna dengan teks */
+            align-items: center;
         }
 
         #baris2 {
@@ -121,14 +125,15 @@
 </head>
 <body>
 
+    <body>
     <div class="stack-container">
         <div class="container-kertas" id="wadahKertas">
             <div class="typing-wrapper">
-                <div id="baris1"></div>
-                    <span id="garisKursor" class="cursor">|</span> </div>
+                <div id="baris1">
+                    <span id="garisKursor" class="cursor">|</span>
+                </div>
                 <div id="baris2"></div>
-            </div>
-            <img src="letter.png" class="gambar-kertas">
+            </div> <img src="letter.png" class="gambar-kertas">
         </div>
 
         <div class="container-amplop" id="wadahAmplop" onclick="bukaUndangan()">
