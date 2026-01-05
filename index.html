@@ -34,27 +34,63 @@
         }
 
         .gambar-amplop {
-            width: 50%;         /* Gambar akan mengikuti lebar wadah .container-amplop */
+            width: 100%;         /* Gambar akan mengikuti lebar wadah .container-amplop */
             height: auto;        /* Tinggi menyesuaikan agar gambar tidak gepeng */
             cursor: pointer;     /* Mengubah kursor menjadi jari saat diarahkan ke gambar */
         }
 
         /* --- KODE BARU: MENERAPKAN ANIMASI --- */
-            animation: denyut-halus 2s infinite ease-in-out;
+            animation: gerak-diagonal 4s infinite ease-in-out;
         }
 
         /* --- KODE BARU: INSTRUKSI GERAKAN --- */
-        @keyframes denyut-halus {
+        @keyframes gerak-diagonal {
             0% {
-                transform: scale(1); /* Ukuran asli */
-            }
-            50% {
-                transform: scale(1.05); /* Membesar sedikit (5%) */
-            }
-            100% {
-                transform: scale(1); /* Kembali ke ukuran asli */
-            }
+        transform: translate(0, 0) scale(1); /* Posisi awal */
+    }
+    25% {
+        transform: translate(10px, -10px) scale(1.02); /* Kanan atas */
+    }
+    50% {
+        transform: translate(-10px, 10px) scale(1.05); /* Kiri bawah */
+    }
+    75% {
+        transform: translate(10px, 10px) scale(1.02); /* Kanan bawah */
+    }
+    100% {
+        transform: translate(0, 0) scale(1); /* Kembali ke tengah */
+    }
         }
+
+        /* --- Aturan untuk Kertas Undangan (letter.png) --- */
+.container-kertas {
+    position: absolute; /* Menumpuk di atas amplop */
+    width: 90%;
+    max-width: 400px;
+    opacity: 0;         /* Awalnya tidak terlihat */
+    transform: scale(0); /* Awalnya berukuran nol */
+    transition: all 0.8s ease-in-out; /* Durasi animasi 0.8 detik */
+    z-index: 1;         /* Di bawah amplop saat awal */
+}
+
+.gambar-kertas {
+    width: 100%;
+    height: auto;
+}
+
+/* --- State ketika Amplop diketuk --- */
+.zoom-out {
+    transform: scale(0) !important; /* Mengecil sampai hilang */
+    opacity: 0 !important;
+    pointer-events: none; /* Agar tidak bisa diklik lagi */
+}
+
+/* --- State ketika Kertas muncul --- */
+.zoom-in {
+    opacity: 1 !important;
+    transform: scale(1) !important; /* Muncul ke ukuran normal */
+    z-index: 100 !important; /* Pindah ke paling depan */
+}
     </style>
 </head>
 <body>
@@ -62,5 +98,26 @@
     <div class="container-amplop">
         <img src="amplop.png" alt="Amplop Undangan" class="gambar-amplop">
     </div>
+
+    <div class="container-kertas" id="wadahKertas">
+        <img src="letter.png" alt="Kertas Undangan" class="gambar-kertas">
+    </div>
+
+    <div class="container-amplop" id="wadahAmplop" onclick="bukaUndangan()">
+        <img src="amplop.png" alt="Amplop Undangan" class="gambar-amplop">
+    </div>
+<script>
+    function bukaUndangan() {
+        // 1. Ambil elemen amplop dan kertas
+        const amplop = document.getElementById('wadahAmplop');
+        const kertas = document.getElementById('wadahKertas');
+
+        // 2. Berikan class 'zoom-out' pada amplop agar mengecil
+        amplop.classList.add('zoom-out');
+
+        // 3. Berikan class 'zoom-in' pada kertas agar muncul besar
+        kertas.classList.add('zoom-in');
+    }
+</script>
     </body>
 </html>
