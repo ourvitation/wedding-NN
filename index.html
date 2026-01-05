@@ -149,7 +149,6 @@
 /* Efek kursor berkedip (opsional agar seperti mengetik sungguhan) */
 .cursor {
     display: none; /* Sembunyikan kursor di awal */
-    display: inline-block;
     width: 2px;
     background-color: #4a4a4a;
     margin-left: 3px;
@@ -196,9 +195,14 @@
     let index2 = 0;
 
     function bukaUndangan() {
-        document.getElementById('wadahAmplop').classList.add('zoom-out');
-        document.getElementById('wadahKertas').classList.add('zoom-in');
+        const amplop = document.getElementById('wadahAmplop').classList.add('zoom-out');
+        const kertas =  document.getElementById('wadahKertas').classList.add('zoom-in');
+        const kursor = document.getElementById('garisKursor');
 
+        // Jalankan animasi transisi
+        amplop.classList.add('zoom-out');
+        kertas.classList.add('zoom-in');
+        
         // Tunggu 1 detik agar animasi kertas selesai, lalu mulai baris 1
         setTimeout(() => {
             document.getElementById('garisKursor').style.display = 'inline-block';
