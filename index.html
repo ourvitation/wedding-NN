@@ -148,6 +148,7 @@
 
 /* Efek kursor berkedip (opsional agar seperti mengetik sungguhan) */
 .cursor {
+    display: none; /* Sembunyikan kursor di awal */
     display: inline-block;
     width: 2px;
     background-color: #4a4a4a;
@@ -199,7 +200,10 @@
         document.getElementById('wadahKertas').classList.add('zoom-in');
 
         // Tunggu 1 detik agar animasi kertas selesai, lalu mulai baris 1
-        setTimeout(ketikBaris1, 1000);
+        setTimeout(() => {
+            document.getElementById('garisKursor').style.display = 'inline-block';
+        ketikBaris1();
+    }, 1000);
     }
 
     function ketikBaris1() {
@@ -215,17 +219,19 @@
 
     function ketikBaris2() {
         if (index2 < teks2.length) {
-            document.getElementById('baris2').innerHTML += teks2.length === 0 ? "" : teks2.charAt(index2);
-            
-            // Pindahkan kursor agar selalu berada di baris yang sedang diketik
+            // Pindahkan kursor ke baris 2 saat mulai mengetik huruf pertama baris 2
             const baris2Elem = document.getElementById('baris2');
             const kursor = document.getElementById('garisKursor');
-            baris2Elem.appendChild(kursor); 
+            
+            if (index2 === 0) {
+            baris2Elem.appendChild(kursor);
+        }
 
-            index2++;
-            setTimeout(ketikBaris2, 100); // Kecepatan ketik baris 2 (lebih cepat)
-        } else {
-            // Selesai semua, kursor tetap berkedip di akhir baris 2
+        baris2Elem.innerHTML = teks2.substring(0, index2 + 1);
+        baris2Elem.appendChild(kursor); // Pastikan kursor selalu di paling ujung
+
+        index2++;
+        setTimeout(ketikBaris2, 100);
         }
     }
 </script>
