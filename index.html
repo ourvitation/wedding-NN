@@ -53,10 +53,15 @@
 
          /* Pengaturan awal: kertas disembunyikan di belakang amplop */
     .container-kertas {
-        opacity: 0;
-        transform: scale(0);
-        z-index: 1;
-    }
+    position: absolute;
+    width: 90%;
+    max-width: 400px;
+    opacity: 0;
+    /* Pastikan ada rotate(0deg) di posisi awal */
+    transform: scale(0) rotate(0deg); 
+    transition: all 0.8s ease-in-out;
+    z-index: 1;
+}
 
         .container-amplop {
         z-index: 2; /* Amplop berada di depan */
