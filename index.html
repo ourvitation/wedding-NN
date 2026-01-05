@@ -134,14 +134,14 @@
     padding-left: 20%;  /* Geser teks ke kanan (tambah angka ini jika kurang kanan) */
     z-index: 110; /* Pastikan di atas kertas */
     font-family: 'Dynalight', cursive !important; /* Anda bisa ganti dengan font lain */
-    font-size: 35px;
+    font-size: 50px;
     color: #74695c;
     font-weight: normal;
     pointer-events: none; /* Agar tidak menghalangi klik */
 }
 
         #baris2 {
-    font-size: 20px; /* Lebih kecil dari baris 1 agar muat di kertas */
+    font-size: 30px; /* Lebih kecil dari baris 1 agar muat di kertas */
     line-height: 1.4;
     max-width: 60%; /* Membatasi lebar teks agar tetap di dalam area kertas */
 }
@@ -233,6 +233,10 @@
         index2++;
         setTimeout(ketikBaris2, 100);
         }
+        /* --- TAMBAHKAN BAGIAN ELSE DI BAWAH INI --- */
+    else {
+        // Menghilangkan kursor setelah selesai mengetik baris 2
+        document.getElementById('garisKursor').style.display = 'none';
     }
 </script>
     }
