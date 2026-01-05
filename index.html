@@ -44,11 +44,18 @@
         }
         
         .gambar-amplop {
-            width: 100%;         /* Gambar akan mengikuti lebar wadah .container-amplop */
+            width: 650%;         /* Gambar akan mengikuti lebar wadah .container-amplop */
             height: auto;        /* Tinggi menyesuaikan agar gambar tidak gepeng */
             cursor: pointer;     /* Mengubah kursor menjadi jari saat diarahkan ke gambar */
             display: block;
         }
+
+         /* Pengaturan awal: kertas disembunyikan di belakang amplop */
+    .container-kertas {
+        opacity: 0;
+        transform: scale(0);
+        z-index: 1;
+    }
 
         /* --- KODE BARU: MENERAPKAN ANIMASI --- */
             animation: gerak-diagonal 4s infinite ease-in-out;
@@ -72,13 +79,6 @@
         transform: translate(0, 0) scale(1); /* Kembali ke tengah */
     }
         }
-
-        /* Pengaturan awal: kertas disembunyikan di belakang amplop */
-    .container-kertas {
-        opacity: 0;
-        transform: scale(0);
-        z-index: 1;
-    }
 
     .container-amplop {
         z-index: 2; /* Amplop berada di depan */
