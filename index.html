@@ -20,10 +20,30 @@
             height: 100%;
             width: 100%;
             background-color: #b79382; /* Warna pilihan Anda */
+            /* Flexbox di bawah ini berfungsi menarik semua isi body ke tengah */
+            display: flex;
+            justify-content: center; /* Tengah secara horizontal */
+            align-items: center;     /* Tengah secara vertikal */
+        }
+
+        .container-amplop {
+            /* Wadah untuk gambar */
+            width: 90%;          /* Lebar 90% dari layar di HP */
+            max-width: 400px;    /* Lebar maksimal 400px agar tidak terlalu besar di laptop */
+            text-align: center;  /* Memastikan konten di dalamnya rata tengah */
+        }
+
+        .gambar-amplop {
+            width: 100%;         /* Gambar akan mengikuti lebar wadah .container-amplop */
+            height: auto;        /* Tinggi menyesuaikan agar gambar tidak gepeng */
+            cursor: pointer;     /* Mengubah kursor menjadi jari saat diarahkan ke gambar */
         }
     </style>
 </head>
 <body>
-
+    <body>
+    <div class="container-amplop">
+        <img src="amplop.png" alt="Amplop Undangan" class="gambar-amplop">
+    </div>
     </body>
 </html>
